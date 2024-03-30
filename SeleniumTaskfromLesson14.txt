@@ -1,0 +1,43 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ExpectCond
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("user-data-dir=C:/Users/S/AppData/Local/Google/Chrome/User Data/Profile 2")
+unpacked_extension_path = 'C:/Users/S/AppData/Local/Google/Chrome/User Data/Profile 2/Extensions/cjpalhdlnbpafiamejdnhcphjbkeiagm/1.56.0_0'
+chrome_options.add_argument(f'--load-extension={unpacked_extension_path}')
+driver = webdriver.Chrome(options=chrome_options)
+wait = WebDriverWait(driver, 8, poll_frequency=1)
+
+""'part1'""
+# driver.get("https://demoqa.com/dynamic-properties")
+# buttonInvis = ("xpath", "//button[@id='enableAfter']")
+#
+# wait.until(ExpectCond.element_to_be_clickable(buttonInvis)).click()
+# time.sleep(3)
+# print(wait.until(ExpectCond.visibility_of_element_located(buttonInvis)))
+
+""'part2'""
+# driver.get("https://the-internet.herokuapp.com/dynamic_controls")
+#
+# remove_button = ("xpath", "//button[text()='Remove']")
+#
+# driver.find_element(*remove_button).click()
+#
+# wait.until(ExpectCond.invisibility_of_element_located(remove_button))
+#
+# print("OK")
+
+driver.get("https://the-internet.herokuapp.com/dynamic_controls")
+
+enable_button = ("xpath", "//button[text()='Enable']")
+text_field = ("xpath", "//input[@type='text']")
+
+wait.until(ExpectCond.element_to_be_clickable(enable_button)).click()
+time.sleep(2)
+wait.until(ExpectCond.element_to_be_clickable(text_field)).send_keys("clickeble")
+time.sleep(3)
+wait.until(ExpectCond.text_to_be_present_in_element_value(text_field, "clickeble"))
+
+print("OK")
